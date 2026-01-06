@@ -1,0 +1,63 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Data files (if large)
+*.csv
+*.xlsx
+*.parquet
+data/raw/*.csv
+data/raw/*.xlsx
+
+# Keep structure but ignore large files
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Results (can be regenerated)
+reports/figures/*.png
+reports/figures/*.jpg
+reports/results/*.pkl
+
+# Keep structure
+!reports/figures/.gitkeep
+!reports/results/.gitkeep
+
