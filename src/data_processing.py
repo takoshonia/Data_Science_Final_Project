@@ -324,7 +324,7 @@ def create_traffic_stress_level(df: pd.DataFrame,
     if method == 'quantile':
         low_threshold = df_feat[volume_column].quantile(0.33)
         high_threshold = df_feat[volume_column].quantile(0.67)
-    else:  # fixed thresholds (example values, adjust based on your data)
+    else:  # fixed thresholds (example values, adjust based on data)
         low_threshold = 2000
         high_threshold = 4000
     
