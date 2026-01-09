@@ -55,18 +55,45 @@
 ## Data Quality Notes
 
 ### Missing Values
-- Most columns have no missing values
-- Some weather columns may have occasional missing values
-- Missing values are handled using forward-fill strategy (appropriate for time series)
+- **Primary Issue**: `holiday` column has 48,143 missing values (99.87% of rows)
+- **Handling Strategy**: Forward-fill (followed by backward-fill for remaining values)
+- **Rationale**: 
+  - Time series data benefits from forward-fill as it preserves temporal continuity
+  - Most days are not holidays, so carrying forward "None" is appropriate
+  - Dropping rows would eliminate 99.87% of the dataset, which is unacceptable
+  - Mean/median imputation would introduce artificial values that don't reflect temporal patterns
+- **Result**: All missing values filled, all 48,204 rows preserved
 
 ### Outliers
-- Traffic volume outliers detected using IQR method
-- Outliers are capped at IQR bounds rather than removed (to preserve data)
+- **Detection Method**: Interquartile Range (IQR) with factor 1.5
+- **Handling Strategy**: Capping (Winsorization) at IQR bounds rather than removal
+- **Rationale**:
+  - Removing outliers would eliminate valid traffic observations (special events, accidents, weather events)
+  - These edge cases are important for the model to learn real-world scenarios
+  - Capping preserves all observations while reducing the impact of extreme values
+  - Traffic volume outliers capped at [-4417.00, 10543.00] (IQR bounds)
+- **Result**: All 48,204 rows preserved; extreme values clipped to reasonable bounds
+
+### Duplicate Rows
+- **Count**: 17 duplicate rows detected (0.035% of dataset)
+- **Handling Strategy**: Kept in dataset
+- **Rationale**:
+  - In time series traffic data, identical measurements at different times are valid
+  - Example: Same traffic volume at 2 AM on different days is legitimate
+  - Low impact (only 0.035% of data)
+  - May represent legitimate repeated patterns in traffic behavior
+- **Result**: All rows including duplicates retained
 
 ### Data Transformations
-1. **Datetime Parsing**: `date_time` column parsed to extract temporal features
-2. **Feature Engineering**: Created 10+ derived features
+1. **Datetime Parsing**: `date_time` column parsed to extract temporal features (year, month, day, hour, day_of_week)
+2. **Feature Engineering**: Created 10+ derived features including:
+   - Rush hour flags (7-9 AM, 5-7 PM based on standard commuter patterns)
+   - Traffic stress levels (Low/Medium/High using quantile-based thresholds for balanced distribution)
+   - Weekend indicators
 3. **Encoding**: Categorical variables encoded for ML models
+
+### Detailed Documentation
+For complete documentation of all data cleaning decisions and their rationale, see the **"Data Cleaning Decisions Documentation"** section in `notebooks/02_data_preprocessing.ipynb`.
 
 ## Usage Notes
 

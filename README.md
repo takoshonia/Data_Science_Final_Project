@@ -252,10 +252,14 @@ print("Decision Tree Accuracy:", dt_metrics['accuracy'])
 ##  Technical Details
 
 ### Data Processing Highlights
-- Handled missing values using forward-fill for time series data
-- Detected outliers using IQR method (Interquartile Range)
+- Handled missing values using forward-fill for time series data (preserves temporal continuity)
+- Detected outliers using IQR method (Interquartile Range) and capped them rather than removing rows
 - Created 8+ derived features including rush hour flags, day types, and traffic density levels
 - Encoded categorical variables appropriately
+
+**📋 Detailed Documentation**: All data cleaning decisions and their rationale are documented in:
+- `notebooks/02_data_preprocessing.ipynb` - "Data Cleaning Decisions Documentation" section
+- `data/DATA_DICTIONARY.md` - "Data Quality Notes" section
 
 ### Machine Learning Approach
 - **Problem Type**: Binary Classification (Congested vs Not Congested)
