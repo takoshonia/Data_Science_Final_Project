@@ -52,8 +52,7 @@ data/raw/*.xlsx
 .DS_Store
 Thumbs.db
 
-# Results (can be regenerated)
-reports/results/*.pkl
+
 
 
 

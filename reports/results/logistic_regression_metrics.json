@@ -1,0 +1,44 @@
+{
+  "model": "Logistic Regression",
+  "train_accuracy": 0.7341233825169203,
+  "test_accuracy": 0.7259620371330775,
+  "precision": 0.7131714988171862,
+  "recall": 0.7259620371330775,
+  "f1_score": 0.6991933904650132,
+  "confusion_matrix": [
+    [
+      5866,
+      593
+    ],
+    [
+      2049,
+      1133
+    ]
+  ],
+  "feature_names": [
+    "temp",
+    "rain_1h",
+    "snow_1h",
+    "clouds_all",
+    "year",
+    "month",
+    "day",
+    "hour",
+    "day_of_week",
+    "is_weekend",
+    "is_rush_hour"
+  ],
+  "coefficients": {
+    "temp": 0.020459631335137635,
+    "rain_1h": 0.00023373095682229064,
+    "snow_1h": 0.0048534572082858,
+    "clouds_all": 0.0022365223389478575,
+    "year": -0.003268891350316153,
+    "month": -0.021204894820821912,
+    "day": -0.0035042053825216283,
+    "hour": 0.006994015705473799,
+    "day_of_week": 0.12566688066479378,
+    "is_weekend": -2.5591899138956835,
+    "is_rush_hour": 1.085151255334701
+  }
+}

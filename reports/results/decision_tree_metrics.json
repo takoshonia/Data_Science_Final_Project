@@ -1,0 +1,44 @@
+{
+  "model": "Decision Tree",
+  "train_accuracy": 0.9322926120893084,
+  "test_accuracy": 0.9265636344777513,
+  "precision": 0.9273059166161537,
+  "recall": 0.9265636344777513,
+  "f1_score": 0.9268343778203629,
+  "confusion_matrix": [
+    [
+      6057,
+      402
+    ],
+    [
+      306,
+      2876
+    ]
+  ],
+  "feature_names": [
+    "temp",
+    "rain_1h",
+    "snow_1h",
+    "clouds_all",
+    "year",
+    "month",
+    "day",
+    "hour",
+    "day_of_week",
+    "is_weekend",
+    "is_rush_hour"
+  ],
+  "feature_importance": {
+    "hour": 0.6501052378232881,
+    "day_of_week": 0.28764596890198446,
+    "temp": 0.024882711453356212,
+    "month": 0.01384501651545072,
+    "day": 0.012759823282766038,
+    "year": 0.005547679215396148,
+    "rain_1h": 0.0031546405419061586,
+    "clouds_all": 0.0014432702567044808,
+    "is_rush_hour": 0.0006156520091476557,
+    "snow_1h": 0.0,
+    "is_weekend": 0.0
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "model": "Random Forest",
+  "train_accuracy": 0.9577574358841376,
+  "test_accuracy": 0.9418110154548284,
+  "precision": 0.9428084676606555,
+  "recall": 0.9418110154548284,
+  "f1_score": 0.9421081145996408,
+  "confusion_matrix": [
+    [
+      6111,
+      348
+    ],
+    [
+      213,
+      2969
+    ]
+  ],
+  "feature_names": [
+    "temp",
+    "rain_1h",
+    "snow_1h",
+    "clouds_all",
+    "year",
+    "month",
+    "day",
+    "hour",
+    "day_of_week",
+    "is_weekend",
+    "is_rush_hour"
+  ],
+  "feature_importance": {
+    "hour": 0.6297737312431891,
+    "day_of_week": 0.1091051445241435,
+    "is_weekend": 0.08731909091437574,
+    "temp": 0.04882014036450623,
+    "is_rush_hour": 0.03226474979027581,
+    "day": 0.030544369041387305,
+    "month": 0.026282305183799645,
+    "clouds_all": 0.014746509880277541,
+    "year": 0.014458427623575828,
+    "rain_1h": 0.006273824033499457,
+    "snow_1h": 0.0004117074009699483
+  }
+}
