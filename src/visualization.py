@@ -221,39 +221,73 @@ def plot_temperature_vs_traffic(df: pd.DataFrame,
     df : pd.DataFrame
         Input DataFrame
     temp_column : str, optional
-        Name of temperature column
+        Name of temperature column (assumed to be in Kelvin)
     volume_column : str, optional
         Name of traffic volume column
     save_path : str, optional
         Path to save the figure
     """
+    # Filter out invalid temperature values (0 or extremely low)
+    # Temperature in Kelvin should be > 200K (approximately -73°C)
+    df_clean = df.copy()
+    df_clean = df_clean[(df_clean[temp_column] > 200) & (df_clean[temp_column] < 320)]
+    
+    if len(df_clean) == 0:
+        print("Warning: No valid temperature data after filtering")
+        return
+    
+    # Convert temperature from Kelvin to Celsius for better interpretation
+    df_clean['temp_celsius'] = df_clean[temp_column] - 273.15
+    
     fig, axes = plt.subplots(1, 2, figsize=(16, 6))
     
-    # Scatter plot
-    scatter = axes[0].scatter(df[temp_column], df[volume_column], alpha=0.5, 
-                            c=df[volume_column], cmap='viridis', s=20)
-    axes[0].set_xlabel('Temperature', fontsize=12)
+    # Scatter plot with Celsius
+    scatter = axes[0].scatter(df_clean['temp_celsius'], df_clean[volume_column], alpha=0.5, 
+                            c=df_clean[volume_column], cmap='viridis', s=20)
+    axes[0].set_xlabel('Temperature (°C)', fontsize=12)
     axes[0].set_ylabel('Traffic Volume', fontsize=12)
     axes[0].set_title('Temperature vs Traffic Volume (Scatter Plot)', fontsize=14, fontweight='bold')
     plt.colorbar(scatter, ax=axes[0], label='Traffic Volume')
     axes[0].grid(True, alpha=0.3)
     
-    # Add trend line
-    z = np.polyfit(df[temp_column], df[volume_column], 1)
+    # Add trend line (only for valid data range)
+    z = np.polyfit(df_clean['temp_celsius'], df_clean[volume_column], 1)
     p = np.poly1d(z)
-    axes[0].plot(df[temp_column], p(df[temp_column]), "r--", alpha=0.8, linewidth=2, 
+    x_trend = np.linspace(df_clean['temp_celsius'].min(), df_clean['temp_celsius'].max(), 100)
+    y_trend = p(x_trend)
+    
+    # Clip trend line to non-negative traffic volumes
+    y_trend = np.maximum(y_trend, 0)
+    
+    axes[0].plot(x_trend, y_trend, "r--", alpha=0.8, linewidth=2, 
                 label=f'Trend: y={z[0]:.2f}x+{z[1]:.0f}')
     axes[0].legend()
+    axes[0].set_ylim(bottom=0)  # Ensure y-axis starts at 0
     
-    # Boxplot by temperature bins
-    df_plot = df.copy()
-    df_plot['temp_bin'] = pd.cut(df_plot[temp_column], bins=5, labels=['Very Cold', 'Cold', 'Moderate', 'Warm', 'Hot'])
-    sns.boxplot(data=df_plot, x='temp_bin', y=volume_column, ax=axes[1], palette='coolwarm')
+    # Boxplot by temperature bins (using Celsius with quantile-based bins)
+    temp_min = df_clean['temp_celsius'].min()
+    temp_max = df_clean['temp_celsius'].max()
+    
+    # Use quantiles for better binning
+    bins = [
+        df_clean['temp_celsius'].quantile(0),
+        df_clean['temp_celsius'].quantile(0.2),
+        df_clean['temp_celsius'].quantile(0.4),
+        df_clean['temp_celsius'].quantile(0.6),
+        df_clean['temp_celsius'].quantile(0.8),
+        df_clean['temp_celsius'].quantile(1.0)
+    ]
+    
+    labels = ['Very Cold', 'Cold', 'Moderate', 'Warm', 'Hot']
+    df_clean['temp_bin'] = pd.cut(df_clean['temp_celsius'], bins=bins, labels=labels, include_lowest=True)
+    
+    sns.boxplot(data=df_clean, x='temp_bin', y=volume_column, ax=axes[1], palette='coolwarm')
     axes[1].set_xlabel('Temperature Range', fontsize=12)
     axes[1].set_ylabel('Traffic Volume', fontsize=12)
     axes[1].set_title('Traffic Volume by Temperature Range', fontsize=14, fontweight='bold')
     axes[1].tick_params(axis='x', rotation=45)
     axes[1].grid(True, alpha=0.3, axis='y')
+    axes[1].set_ylim(bottom=0)  # Ensure y-axis starts at 0
     
     plt.tight_layout()
     

@@ -3,123 +3,95 @@
 ## Project: Urban Pulse – Predicting City Traffic Stress
 
 ### Team Members
-- [Team Member 1 Name]
-- [Team Member 2 Name] (if applicable)
-- [Team Member 3 Name] (if applicable)
-- [Team Member 4 Name] (if applicable)
+- Barbare Pantskhava
+- Tamar Shonia
 
 ---
 
 ## Contribution Breakdown
 
 ### [Team Member 1 Name]
-**Role**: [e.g., Lead Developer / Data Analyst]
+**Role**: Data Engineer / Preprocessing Specialist
 
 **Contributions**:
 - Set up project structure and repository
 - Implemented data preprocessing pipeline (`src/data_processing.py`)
-- Created data cleaning functions with comprehensive error handling
-- Developed feature engineering logic (rush hour detection, day type classification)
-- Wrote data quality report documentation
+- Created data cleaning functions with error handling for file loading and input validation
+- Developed feature engineering logic (rush hour detection, day type classification, traffic stress levels)
+- Handled missing values and outlier detection using IQR method
+- Created data quality reports and documentation
+- Created `notebooks/01_data_exploration.ipynb`
 - Created `notebooks/02_data_preprocessing.ipynb`
+- Wrote data dictionary documentation (`data/DATA_DICTIONARY.md`)
+- Created static visualization functions (`src/visualization.py`)
+- Created `notebooks/03_eda_visualization.ipynb`
+- Performed statistical analysis and correlation studies
+- Identified key patterns and insights from exploratory data analysis
 
 **Files Modified/Created**:
 - `src/data_processing.py`
+- `src/visualization.py`
+- `notebooks/01_data_exploration.ipynb`
 - `notebooks/02_data_preprocessing.ipynb`
-- `README.md` (data processing section)
-
-**Time Invested**: [X hours]
+- `notebooks/03_eda_visualization.ipynb`
+- `data/DATA_DICTIONARY.md`
+- `README.md` (data processing and dataset sections)
+- `reports/figures/` (static visualization outputs)
 
 ---
 
 ### [Team Member 2 Name]
-**Role**: [e.g., EDA Specialist / Visualization Lead]
+**Role**: ML Engineer / Visualization Specialist
 
 **Contributions**:
-- Conducted comprehensive exploratory data analysis
-- Created all visualizations (7+ different types)
-- Performed statistical analysis and correlation studies
-- Identified key patterns and insights
-- Created `notebooks/03_eda_visualization.ipynb`
-- Developed visualization utility functions (`src/visualization.py`)
-
-**Files Modified/Created**:
-- `src/visualization.py`
-- `notebooks/03_eda_visualization.ipynb`
-- `reports/figures/` (all visualization outputs)
-
-**Time Invested**: [X hours]
-
----
-
-### [Team Member 3 Name]
-**Role**: [e.g., ML Engineer / Model Developer]
-
-**Contributions**:
+- Created interactive visualization functions using Plotly (`src/interactive_visualization.py`)
+- Created `notebooks/05_interactive_visualizations.ipynb`
 - Implemented Logistic Regression model
 - Implemented Decision Tree model
-- Conducted model evaluation and comparison
+- Implemented Random Forest model (bonus third model)
+- Conducted comprehensive model evaluation and comparison
 - Created model utility functions (`src/models.py`)
-- Performed hyperparameter tuning (if applicable)
 - Created `notebooks/04_machine_learning.ipynb`
-- Generated model performance reports
-
-**Files Modified/Created**:
-- `src/models.py`
-- `notebooks/04_machine_learning.ipynb`
-- `reports/results/` (model outputs)
-
-**Time Invested**: [X hours]
-
----
-
-### [Team Member 4 Name]
-**Role**: [e.g., Documentation Lead / Project Manager]
-
-**Contributions**:
-- Created comprehensive README.md
-- Wrote project documentation
-- Prepared presentation slides
-- Coordinated team meetings and deadlines
-- Created CONTRIBUTIONS.md
+- Generated model performance reports and metrics
+- Developed Streamlit interactive dashboard (`dashboard.py`)
+- Created comprehensive README.md with results and methodology
+- Created project documentation (`PROJECT_SUMMARY.md`, `QUICKSTART.md`)
 - Ensured code quality and PEP 8 compliance
-- Created `notebooks/01_data_exploration.ipynb`
 
 **Files Modified/Created**:
-- `README.md`
-- `CONTRIBUTIONS.md`
-- `notebooks/01_data_exploration.ipynb`
-- Presentation materials
-
-**Time Invested**: [X hours]
+- `src/interactive_visualization.py`
+- `src/models.py`
+- `dashboard.py`
+- `notebooks/04_machine_learning.ipynb`
+- `notebooks/05_interactive_visualizations.ipynb`
+- `README.md` (main documentation)
+- `PROJECT_SUMMARY.md`
+- `QUICKSTART.md`
+- `reports/figures/` (interactive visualization outputs)
+- `reports/results/` (model outputs)
 
 ---
 
 ## Collaboration Notes
 
 ### Communication
-- **Meetings**: Weekly team meetings via [Zoom/Teams/etc.]
-- **Tools**: GitHub for version control, Slack/Discord for communication
-- **Timeline**: Followed 3-week project timeline as outlined in guidelines
+- **Meetings**: Regular team meetings to coordinate work and review progress
+- **Tools**: Regular communication for integration and code sharing
+- **Timeline**: Followed project timeline as outlined in guidelines
 
 ### Code Review Process
-- All code was reviewed by at least one other team member before merging
-- Used GitHub pull requests for code review
+- All code was reviewed by the other team member before finalizing
 - Ensured consistency in coding style and documentation
+- Verified integration between data processing and analysis components
+
+### Workflow
+- **Phase 1**: Team Member 1 focused on data exploration and preprocessing pipeline
+- **Phase 2**: Team Member 1 created static visualizations while Team Member 2 began ML model development
+- **Phase 3**: Team Member 2 completed ML models, interactive visualizations, and dashboard
+- **Integration**: Both members collaborated on final documentation and project integration
 
 ### Challenges Overcome
-- [Challenge 1]: [How it was resolved]
-- [Challenge 2]: [How it was resolved]
-
----
-
-## Individual Project Note
-
-*If this is an individual project, please note:*
-
-This project was completed individually. All contributions listed above were made by a single team member.
-
----
-
-**Last Updated**: [Current Date]
+- Coordinated data preprocessing output format to ensure compatibility with visualization and modeling functions
+- Integrated static and interactive visualization modules to work with same data pipeline
+- Ensured consistent feature engineering between preprocessing and model training
 

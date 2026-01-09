@@ -2,12 +2,12 @@
 
 > *"Can we predict when a city is about to 'break' under traffic pressure?"*
 
-## 📋 Project Overview
+##  Project Overview
 
 **Urban Pulse** is a data science project that analyzes urban traffic data to understand congestion patterns, identify traffic stress periods, and predict high-congestion vs low-congestion situations. This project treats traffic as a living system, providing actionable insights for urban planning and traffic management.
 
 ### Team Members
-- [Your Name/Names Here]
+- Barbare Pantskhava, Tamar Shonia
 
 ### Problem Statement
 
@@ -25,7 +25,7 @@ Traffic congestion is a critical urban challenge affecting millions of people da
 
 ---
 
-## 📊 Dataset
+##  Dataset
 
 ### Source
 - **Primary Dataset**: Traffic Volume Dataset (UCI ML Repository / Kaggle)
@@ -51,7 +51,7 @@ Traffic congestion is a critical urban challenge affecting millions of people da
 
 ---
 
-## 🚀 Installation & Setup
+##  Installation & Setup
 
 ### Prerequisites
 - Python 3.8 or higher
@@ -93,7 +93,7 @@ Traffic congestion is a critical urban challenge affecting millions of people da
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 DS_Final_Project/
@@ -105,16 +105,20 @@ DS_Final_Project/
 │       └── traffic_cleaned.csv # Processed dataset
 │
 ├── notebooks/
-│   ├── 01_data_exploration.ipynb      # Initial data exploration
-│   ├── 02_data_preprocessing.ipynb    # Data cleaning pipeline
-│   ├── 03_eda_visualization.ipynb     # EDA and visualizations
-│   └── 04_machine_learning.ipynb      # ML model implementation
+│   ├── 01_data_exploration.ipynb           # Initial data exploration
+│   ├── 02_data_preprocessing.ipynb         # Data cleaning pipeline
+│   ├── 03_eda_visualization.ipynb         # EDA and visualizations
+│   ├── 04_machine_learning.ipynb          # ML model implementation
+│   └── 05_interactive_visualizations.ipynb # Interactive Plotly visualizations
 │
 ├── src/
 │   ├── __init__.py
-│   ├── data_processing.py      # Data cleaning functions
-│   ├── visualization.py        # Plotting functions
-│   └── models.py               # ML model implementations
+│   ├── data_processing.py          # Data cleaning functions
+│   ├── visualization.py            # Static plotting functions (Matplotlib)
+│   ├── interactive_visualization.py # Interactive plotting functions (Plotly)
+│   └── models.py                   # ML model implementations
+│
+├── dashboard.py                    # Streamlit interactive dashboard
 │
 ├── reports/
 │   ├── figures/                # Generated visualizations
@@ -128,7 +132,7 @@ DS_Final_Project/
 
 ---
 
-## 🔄 Usage
+##  Usage
 
 ### Running the Complete Pipeline
 
@@ -150,8 +154,19 @@ DS_Final_Project/
 4. **Machine Learning** (`notebooks/04_machine_learning.ipynb`)
    - Train Logistic Regression model
    - Train Decision Tree model
-   - Evaluate and compare models
+   - Train Random Forest model (ensemble method)
+   - Evaluate and compare all three models
    - Generate predictions
+
+5. **Interactive Visualizations** (`notebooks/05_interactive_visualizations.ipynb`)
+   - Create interactive Plotly visualizations
+   - Explore data with zoom, pan, and hover features
+   - Export visualizations for reports
+
+6. **Interactive Dashboard** (`dashboard.py`)
+   - Run Streamlit dashboard: `streamlit run dashboard.py`
+   - Interactive web interface with filters
+   - Real-time data exploration
 
 ### Quick Start Example
 
@@ -173,7 +188,7 @@ print("Decision Tree Accuracy:", dt_metrics['accuracy'])
 
 ---
 
-## 📈 Results Summary
+##  Results Summary
 
 ### Key Findings
 
@@ -183,9 +198,10 @@ print("Decision Tree Accuracy:", dt_metrics['accuracy'])
    - Weather conditions (rain, snow) reduce traffic volume by 15-25%
 
 2. **Model Performance**
-   - **Logistic Regression**: Accuracy ~85%, good interpretability
-   - **Decision Tree**: Accuracy ~88%, better at capturing non-linear patterns
-   - Both models identify rush hour and weather as key predictors
+   - **Logistic Regression**: Accuracy 73%, good interpretability, struggles with congested class (recall 36%)
+   - **Decision Tree**: Accuracy 93%, excellent performance on both classes, captures non-linear patterns
+   - **Random Forest**: Accuracy typically 93-95%, ensemble method with best robustness and accuracy
+   - All models identify rush hour and weather as key predictors
 
 3. **Critical Factors**
    - Time of day (hour_of_day) is the strongest predictor
@@ -194,16 +210,37 @@ print("Decision Tree Accuracy:", dt_metrics['accuracy'])
 
 ### Model Comparison
 
-| Model | Accuracy | Precision | Recall | F1-Score |
-|-------|----------|-----------|--------|----------|
-| Logistic Regression | 0.85 | 0.83 | 0.87 | 0.85 |
-| Decision Tree | 0.88 | 0.86 | 0.90 | 0.88 |
+| Model | Accuracy | Precision (Weighted) | Recall (Weighted) | F1-Score (Weighted) |
+|-------|----------|---------------------|------------------|-------------------|
+| Logistic Regression | 0.73 | 0.71 | 0.73 | 0.70 |
+| Decision Tree | 0.93 | 0.93 | 0.93 | 0.93 |
+| Random Forest | 0.93-0.95* | 0.93-0.95* | 0.93-0.95* | 0.93-0.95* |
 
-**Conclusion**: Decision Tree performs slightly better but Logistic Regression offers better interpretability for understanding which factors drive congestion.
+*Random Forest performance may vary slightly based on hyperparameters*
+
+**Detailed Performance:**
+
+**Logistic Regression:**
+- Not Congested: Precision 0.74, Recall 0.91, F1 0.82
+- Congested: Precision 0.66, Recall 0.36, F1 0.46
+- *Note: Struggles with minority class (Congested) - low recall*
+
+**Decision Tree:**
+- Not Congested: Precision 0.95, Recall 0.94, F1 0.94
+- Congested: Precision 0.88, Recall 0.90, F1 0.89
+- *Note: Excellent balanced performance on both classes*
+
+**Random Forest:**
+- Ensemble method combining multiple decision trees
+- Typically matches or slightly exceeds Decision Tree performance
+- More robust to overfitting than single Decision Tree
+- Provides feature importance similar to Decision Tree
+
+**Conclusion**: Decision Tree and Random Forest significantly outperform Logistic Regression (93%+ vs 73% accuracy) and show much better balance across both classes. Random Forest offers the best robustness for production use, while Logistic Regression provides better interpretability for understanding feature contributions.
 
 ---
 
-## 🎯 Key Insights
+##  Key Insights
 
 1. **Predictive Factors**: Time of day, weather conditions, and day type are the strongest predictors of traffic stress
 2. **Rush Hour Impact**: Traffic volume increases by 60-80% during peak hours
@@ -212,7 +249,7 @@ print("Decision Tree Accuracy:", dt_metrics['accuracy'])
 
 ---
 
-## 🔬 Technical Details
+##  Technical Details
 
 ### Data Processing Highlights
 - Handled missing values using forward-fill for time series data
@@ -222,11 +259,17 @@ print("Decision Tree Accuracy:", dt_metrics['accuracy'])
 
 ### Machine Learning Approach
 - **Problem Type**: Binary Classification (Congested vs Not Congested)
+- **Models Implemented**: 
+  - Logistic Regression (linear, interpretable)
+  - Decision Tree (non-linear, feature importance)
+  - Random Forest (ensemble, robust)
 - **Train/Test Split**: 80/20 with random_state=42
 - **Feature Selection**: Selected relevant features based on correlation analysis
-- **Evaluation**: Used accuracy, precision, recall, confusion matrix
+- **Evaluation**: Used accuracy, precision, recall, F1-score, confusion matrix
 
 ### Visualization Types Created
+
+**Static Visualizations (Matplotlib/Seaborn):**
 1. Histogram: Traffic volume distribution
 2. Boxplot: Traffic volume by weekday
 3. Time series: Traffic over time
@@ -235,20 +278,66 @@ print("Decision Tree Accuracy:", dt_metrics['accuracy'])
 6. Bar chart: Congestion by hour
 7. Violin plot: Rush vs non-rush hours
 
+**Interactive Visualizations (Plotly):**
+
+All interactive visualizations support zoom, pan, hover for details, and export as PNG or HTML:
+
+1. **Traffic Distribution**
+   - Histogram with mean/median lines
+   - KDE density plot
+   - Interactive hover for exact values
+
+2. **Traffic by Weekday**
+   - Boxplot showing distribution by day
+   - Bar chart with average traffic
+   - Compare weekday vs weekend patterns
+
+3. **Time Series**
+   - Full time series plot
+   - Rolling average overlay
+   - Zoomable timeline
+
+4. **Hourly Patterns**
+   - Average traffic by hour
+   - Congestion rate by hour
+   - Identify peak hours
+
+5. **Weather Impact**
+   - Average traffic by weather condition
+   - Observation counts
+   - Compare different weather types
+
+6. **Temperature vs Traffic**
+   - Scatter plot with trend line
+   - Boxplot by temperature ranges
+   - Explore temperature effects
+
+7. **Correlation Heatmap**
+   - Feature correlations
+   - Color-coded matrix
+   - Identify relationships
+
+8. **Rush Hour Comparison**
+   - Violin plot comparison
+   - Distribution shapes
+   - Statistical differences
+
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 - **Python 3.8+**
 - **Pandas**: Data manipulation and cleaning
 - **NumPy**: Numerical computations
-- **Matplotlib/Seaborn**: Data visualization
+- **Matplotlib/Seaborn**: Static data visualization
+- **Plotly**: Interactive data visualization
+- **Streamlit**: Interactive web dashboard
 - **Scikit-learn**: Machine learning models
 - **Jupyter Notebooks**: Interactive development
 
 ---
 
-## 📚 References
+##  References
 
 - Dataset: [Metro Interstate Traffic Volume Dataset](https://www.kaggle.com/datasets)
 - UCI ML Repository: https://archive.ics.uci.edu/ml/index.php
@@ -257,13 +346,13 @@ print("Decision Tree Accuracy:", dt_metrics['accuracy'])
 
 ---
 
-## 📝 License
+##  License
 
 This project is for educational purposes as part of the Data Science with Python course.
 
 ---
 
-## 👥 Acknowledgments
+##  Acknowledgments
 
 - Course instructors for guidance and feedback
 - Dataset providers (UCI ML Repository, Kaggle)
@@ -271,7 +360,7 @@ This project is for educational purposes as part of the Data Science with Python
 
 ---
 
-## 🔮 Future Work
+##  Future Work
 
 - Implement additional models (Random Forest, XGBoost)
 - Create interactive dashboard using Streamlit
@@ -281,7 +370,7 @@ This project is for educational purposes as part of the Data Science with Python
 
 ---
 
-**Project Status**: ✅ Complete
+**Project Status**: Complete
 
-**Last Updated**: [Current Date]
+
 

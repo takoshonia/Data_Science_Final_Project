@@ -53,11 +53,7 @@ data/raw/*.xlsx
 Thumbs.db
 
 # Results (can be regenerated)
-reports/figures/*.png
-reports/figures/*.jpg
 reports/results/*.pkl
 
-# Keep structure
-!reports/figures/.gitkeep
-!reports/results/.gitkeep
+
 
